@@ -7,7 +7,7 @@ in {
       enable = true;
 
       profiles = {
-        "justin" = {
+        "bill" = {
           isDefault = true;
         };
       };
@@ -24,14 +24,17 @@ in {
       programs.eww.enable = true;
     };
 
-    home.packages = with pkgs; [
-      rofi
-      (dwarf-fortress-packages.dwarf-fortress-full.override {
+    home.packages = [
+      pkgs.rofi
+      (pkgs.dwarf-fortress-packages.dwarf-fortress-full.override {
         enableIntro = false;
       })
 
-      alejandra
-      prismlauncher
+      pkgs.alejandra
+      pkgs.prismlauncher
+      pkgs.vscode
+      pkgs.jetbrains.pycharm-professional
+      pkgs.rstudio
     ];
 
     programs.zellij = {
