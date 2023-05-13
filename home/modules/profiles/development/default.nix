@@ -60,7 +60,7 @@ in {
       pkgs.cocogitto
 
       pkgs.dig
-      pkgs.py
+      pkgs.python311
     ];
   };
 }

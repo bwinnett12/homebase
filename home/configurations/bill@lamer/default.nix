@@ -1,4 +1,4 @@
-{comma, ...}: {pkgs, ...}: let
+{...}: {pkgs, ...}: let
 in {
   config = {
     activeProfiles = ["development" "browsing" "gaming" "graphical" "design" "work" "media"];
@@ -29,7 +29,7 @@ in {
       (dwarf-fortress-packages.dwarf-fortress-full.override {
         enableIntro = false;
       })
-      comma.packages.x86_64-linux.default
+
       alejandra
       prismlauncher
     ];

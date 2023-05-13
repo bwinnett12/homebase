@@ -21,27 +21,39 @@
   # Select internationalisation properties.
   i18n = {
     defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "en_US.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
+      LC_MEASUREMENT = "en_US.UTF-8";
+      LC_MONETARY = "en_US.UTF-8";
+      LC_NAME = "en_US.UTF-8";
+      LC_NUMERIC = "en_US.UTF-8";
+      LC_PAPER = "en_US.UTF-8";
+      LC_TELEPHONE = "en_US.UTF-8";
+      LC_TIME = "en_US.UTF-8";
+    };
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.displayManager = {
-    sddm.enable = true;
+  services.xserver = {
+    enable = true;
+    displayManager.lightdm.enable = true;
+    desktopManager.cinnamon.enable = true;
+
+    videoDrivers = ["nvidia"];
   };
+
+  hardware.opengl.enable = true;
+  hardware.nvidia.modesetting.enable = true;
 
   # personal modules
   billwinnett = {
-    windowing.plasma.enable = true;
-    windowing.hyprland.enable = true;
+    windowing.plasma.enable = false;
+    windowing.hyprland.enable = false;
 
     graphical.fonts.enable = true;
 
     sound.enable = true;
-
-    development.containers = {
-      enable = true;
-      useDocker = true;
-    };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

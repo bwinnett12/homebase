@@ -13,8 +13,6 @@ in {
   config = lib.mkIf cfg.enable {
     fonts = {
       fonts = [
-        self.packages.${pkgs.system}.material-symbols
-
         pkgs.lexend
         pkgs.nerdfonts
         pkgs.noto-fonts

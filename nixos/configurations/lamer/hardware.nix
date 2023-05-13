@@ -9,32 +9,24 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
+  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = ["kvm-intel"];
+  boot.extraModulePackages = [];
+
   fileSystems."/" = {
-    device = "fpool/local/root";
-    fsType = "zfs";
+    device = "/dev/disk/by-uuid/d3cbe1c5-e2e9-4450-9aaa-80434e8fed2b";
+    fsType = "ext4";
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/D3E4-CF9F";
+  fileSystems."/boot/efi" = {
+    device = "/dev/disk/by-uuid/F2BB-6068";
     fsType = "vfat";
   };
 
-  fileSystems."/nix" = {
-    device = "fpool/local/nix";
-    fsType = "zfs";
-  };
-
-  fileSystems."/home" = {
-    device = "fpool/safe/home";
-    fsType = "zfs";
-  };
-
-  fileSystems."/persist" = {
-    device = "fpool/safe/persist";
-    fsType = "zfs";
-  };
-
-  swapDevices = [];
+  swapDevices = [
+    {device = "/dev/disk/by-uuid/674bf162-0686-4b2f-afab-a68a1e24f02d";}
+  ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -43,9 +35,7 @@
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp0s31f6.useDHCP = lib.mkDefault true;
 
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  hardware.opengl.enable = true;
-  services.xserver.videoDrivers = ["amdgpu"];
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
